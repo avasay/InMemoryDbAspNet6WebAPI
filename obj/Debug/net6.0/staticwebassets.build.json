@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "37ObJ87xuyjEQsstoBpvse/3KvAJv2lcM6WdEeQ8uv8=",
+  "Source": "InMemoryDbAspNet6WebAPI",
+  "BasePath": "_content/InMemoryDbAspNet6WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
