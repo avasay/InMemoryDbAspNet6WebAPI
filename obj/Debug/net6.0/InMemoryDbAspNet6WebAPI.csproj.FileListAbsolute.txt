@@ -264,3 +264,6 @@ C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMem
 C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\obj\Debug\net6.0\ref\InMemoryDbAspNet6WebAPI.dll
 C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\obj\Debug\net6.0\InMemoryDbAspNet6WebAPI.pdb
 C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\obj\Debug\net6.0\InMemoryDbAspNet6WebAPI.genruntimeconfig.cache
+C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\blog 2022\ProjectDB\InMemoryDbAspNet6WebAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

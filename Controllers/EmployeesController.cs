@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,14 +20,14 @@ public class EmployeesController : Controller
     [HttpGet]
     public async Task<IEnumerable<Employee>> GetEmployees()
     {
-        return await _employeeRepository.GetEmployees();
+        return await _employeeRepository.GetEmployeesAsync();
     }
 
     // GET: api/v2/Employees/5
     [HttpGet("{id}")]
     public async Task<IActionResult> GetEmployee([FromRoute] int id)
     {
-        var employee = await _employeeRepository.FindEmployeeAsync(id);
+        var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
         if (employee == null)
         {
             return NotFound();
@@ -54,8 +55,6 @@ public class EmployeesController : Controller
         return Ok(employee);
     }
 
-
-
     // PUT: api/v2/Employees/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutEmployee([FromRoute] int id, [FromBody] Employee employee)
@@ -64,8 +63,24 @@ public class EmployeesController : Controller
         {
             return BadRequest();
         }
-        await _employeeRepository.UpdateEmployeeAsync(employee);
-        return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
+        var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(id, employee);
+        if (updatedEmployee == null)
+        {
+            return NotFound();
+        }
+        return Ok(updatedEmployee);
+    }
+
+    // PATCH: api/v2/Employees/5
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchEmployee([FromRoute] int id, [FromBody] JsonPatchDocument employeeDocument)
+    {
+        var updatedEmployee = await _employeeRepository.UpdateEmployeePatchAsync(id, employeeDocument);
+        if (updatedEmployee == null)
+        {
+            return NotFound();
+        }
+        return Ok(updatedEmployee);
     }
 
 }

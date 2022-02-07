@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace InMemoryDbAspNet6WebAPI;
 public class EmployeeRepository : IEmployeeRepository
@@ -14,14 +15,14 @@ public class EmployeeRepository : IEmployeeRepository
         _dbContext = dBContext;
     }
 
-    public async Task<IEnumerable<Employee>> GetEmployees()
+    public async Task<IEnumerable<Employee>> GetEmployeesAsync()
     {
         var query = (from employees in _dbContext.Employees
                       select employees).ToListAsync();
         return await query;
     }
 
-    public async Task<Employee> FindEmployeeAsync(int id)
+    public async Task<Employee> GetEmployeeByIdAsync(int id)
     {
         Employee employee = await _dbContext.Employees.FindAsync(id);
         return employee;
@@ -38,7 +39,7 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Employee> DeleteEmployeeAsync(int id)
     {
-        var employee = await FindEmployeeAsync(id);
+        var employee = await GetEmployeeByIdAsync(id);
         if(employee == null)
         {
             return employee;
@@ -50,12 +51,30 @@ public class EmployeeRepository : IEmployeeRepository
 
     }
 
-  
-    public async Task<Employee> UpdateEmployeeAsync(Employee employee)
+    public async Task<Employee> UpdateEmployeeAsync(int id, Employee employee)
     {
-        _dbContext.Entry(employee).State = EntityState.Modified;
+        var employeeQuery = await GetEmployeeByIdAsync(id);
+        if(employeeQuery == null)
+        {
+            return employeeQuery;
+        }
+        
+        _dbContext.Entry(employeeQuery).CurrentValues.SetValues(employee);
         await _dbContext.SaveChangesAsync();
 
-        return employee;
+        return employeeQuery;
+    }
+
+    public async Task<Employee> UpdateEmployeePatchAsync(int id, JsonPatchDocument employeeDocument)
+    {
+        var employeeQuery = await GetEmployeeByIdAsync(id);
+        if (employeeQuery == null)
+        {
+            return employeeQuery;
+        }
+        employeeDocument.ApplyTo(employeeQuery);
+        await _dbContext.SaveChangesAsync();
+
+        return employeeQuery;
     }
 }

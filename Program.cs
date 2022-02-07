@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EmployeeDBContext>(options => options.UseInMemoryDatabase("Employees"));
-builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddCors();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 var app = builder.Build();
 
@@ -22,6 +24,15 @@ if (builder.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseCors(
+        //options => options.WithOrigins("https://localhost:7067/").AllowAnyMethod() // Specific origin if this is what you want.
+        builder => builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithExposedHeaders("*")
+);
 
 app.MapControllers();
 
