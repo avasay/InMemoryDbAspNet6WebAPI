@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace InMemoryDbAspNet6WebAPI;
@@ -7,18 +7,29 @@ public class Employee
     public int Id { get; set; }
 
     [Required]
-    public string fName { get; set; }
+    public string FName { get; set; }
 
     [Required]
-    public string lName { get; set; }
+    public string LName { get; set; }
 
-    public int age { get; set; }
+    [EmailAddress(ErrorMessage = "E-mail is not valid")]
+    public string Email { get; set; }
 
-    public string address { get; set; }
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+    public DateTime DateOfHire { get; set; }
 
-    public string city { get; set; }
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+    public DateTime DateOfBirth { get; set; }
 
-    public string state { get; set; }
+    public string Position { get; set; }
 
-    public string zipcode { get; set; }
+    public string Department { get; set; }
+
+    public string Address { get; set; }
+
+    public string City { get; set; }
+
+    public string State { get; set; }
+
+    public string Zipcode { get; set; }
 }
