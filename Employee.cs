@@ -6,25 +6,40 @@ public class Employee
 {
     public int Id { get; set; }
 
-    [Required]
+    [Display(Name = "First Name")]
+    [Required(ErrorMessage = "Frst name is required.")]
+    [MaxLength(25, ErrorMessage = "Max is 25")]
     public string FName { get; set; }
 
-    [Required]
+    [Display(Name = "Last Name")]
+    [Required(ErrorMessage = "Last name is required.")]
+    [MaxLength(25, ErrorMessage = "Max is 25")]
     public string LName { get; set; }
 
-    [EmailAddress(ErrorMessage = "E-mail is not valid")]
+    [Display(Name = "Email")]
+    [Required(ErrorMessage = "Email address is required.")]
+    [EmailAddress(ErrorMessage = "Email address is not valid.")]
+    [DataType(DataType.EmailAddress)]
     public string Email { get; set; }
 
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-    public DateTime DateOfHire { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Hire Date")] 
+    [DataType(DataType.Date)]
+    public DateTime? DateOfHire { get; set; }
 
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-    public DateTime DateOfBirth { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Birth Date")] 
+    [DataType(DataType.Date)]
+    public DateTime? DateOfBirth { get; set; }
 
+    [StringLength(25)]
     public string Position { get; set; }
 
+    [StringLength(25)]
     public string Department { get; set; }
 
+    [Display(Name = "Street")]
+    [StringLength(50)]
     public string Address { get; set; }
 
     public string City { get; set; }

@@ -39,7 +39,17 @@ public class EmployeesController : Controller
     [HttpPost]
     public async Task<IActionResult> PostEmployee([FromBody] Employee employee)
     {
+        var emp = await _employeeRepository.GetEmployeeByEmailAsync(employee.Email);
+        /*
+        if(emp != null)
+        {
+
+            ModelState.AddModelError("email", "Email address already in use.");
+            return BadRequest( ModelState);
+        }
+        */
         await _employeeRepository.AddEmployeeAsync(employee);
+
         return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
     }
 
@@ -61,7 +71,7 @@ public class EmployeesController : Controller
     {
         if (id != employee.Id)
         {
-            return BadRequest();
+            return BadRequest(ModelState);
         }
         var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(id, employee);
         if (updatedEmployee == null)

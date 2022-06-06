@@ -29,6 +29,18 @@ public class EmployeeRepository : IEmployeeRepository
 
     }
 
+    public async Task<Employee> GetEmployeeByEmailAsync(string email)
+    {
+        var employee = (from x in _dbContext.Employees
+                    where x.Email == email
+                    select x).FirstOrDefault();
+                    
+        //Employee employee = await _dbContext.Employees.FindAsync(id);
+        return employee;
+
+    }
+
+
     public async Task<Employee> AddEmployeeAsync(Employee employee)
     {
         _dbContext.Employees.Add(employee);
